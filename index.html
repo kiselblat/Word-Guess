@@ -15,34 +15,43 @@
   </head>
   
 <body class="d-flex flex-column h-100">   
-  <script src="assets/javascript/game.js"></script>
   
-  <header class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <h2 class="display-4">Compu-guess!</h2>
-      <p class="lead">Match wits with the Machine! Press any letter to guess, but don't run out of chances!</p>
+  <header>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md">
+        <h1>Compu-guess!</h1>
+        <p class="lead">Match wits with the Machine! Press any letter to guess, but don't run out of chances!</p>
+      </div>
+      <div class="col-md-2"></div>
     </div>
   </header>
-
+  
   <section>
     <div class="row">
+      <div class="col-md-2"></div>
       <div class="col-md">
-        <h1 id="guess-word">NOTHING LOADED</h1>
+        <h1 id="guess-word"></h1>
       </div>
+      <div class="col-md-2"></div>
     </div>
     <div class="row">
+      <div class="col-md-2"></div>
       <div class="col-md">
-        <h2 id="guesses-left">NOTHING LOADED</h2>
+        <h2 id="guesses-left"></h2>
       </div>
       <div class="col-md">
-        <h2 id="guessed-letters">NOTHING LOADED</h2>
+        <h2 id="guessed-letters"></h2>
       </div>
+      <div class="col-md-2"></div>
     </div>
   </section>
-
+  
   <footer class="footer mt-auto py-3">
     <a href="#">Goes nowhere</a>
   </footer>
+  
+  <script src="assets/javascript/game.js"></script>
 </body>
 
 </html>
