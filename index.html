@@ -9,19 +9,20 @@
 
     <title>Guess the Word!</title>
 
-    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link href="https://fonts.googleapis.com/css?family=Oxygen+Mono|Press+Start+2P|VT323" rel="stylesheet"> 
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
   </head>
-  
+
 <body class="d-flex flex-column h-100">   
-  
+
   <header>
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md">
-        <h1>Compu-guess!</h1>
-        <p class="lead">Match wits with the Machine! Press any letter to guess, but don't run out of chances!</p>
+        <h1 class="text-center">Compu-guess!</h1>
+        <p class="lead text-center">Match wits with the Machine! Press any letter to guess, but don't run out of chances!</p>
       </div>
       <div class="col-md-2"></div>
     </div>
@@ -31,27 +32,36 @@
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md">
-        <h1 id="guess-word"></h1>
+        <h1 id="guess-word" class="text-center"></h1>
       </div>
       <div class="col-md-2"></div>
     </div>
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md">
-        <h2 id="guesses-left"></h2>
+        <h2>Guesses Left:</h2>
+        <p id="guesses-left"></p>
       </div>
       <div class="col-md">
-        <h2 id="guessed-letters"></h2>
+        <h2>Guessed Letters:</h2>
+        <p id="guessed-letters"></p>
       </div>
       <div class="col-md-2"></div>
     </div>
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md">
-        <h2 id="wins"></h2>
+        <h2>Wins: <span id="wins"></span></h2>
       </div>
       <div class="col-md">
-        <h2 id="losses"></h2>
+        <h2>Losses: <span id="losses"></span></h2>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md">
+       <p class="text-center"><span id="results-banner"></span></p>
       </div>
       <div class="col-md-2"></div>
     </div>

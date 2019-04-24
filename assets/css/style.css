@@ -1,0 +1,16 @@
+body {
+  color: green;
+  background-image: url(../images/circuits_board-wallpaper-darkened.png);
+}
+
+h1 {
+  font-family: 'Press Start 2P', cursive;
+}
+
+h2 {
+    font-family: 'Oxygen Mono', monospace;
+}
+
+p {
+  font-family: 'VT323', monospace;
+}
