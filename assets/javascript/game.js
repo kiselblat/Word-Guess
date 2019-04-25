@@ -10,6 +10,10 @@ var GUESSES = 10
 var WINS = 0;
 var LOSSES = 0;
 
+var winMessages = ["You scored a win on behalf of humanity.","Pretty good for a meatbag.","Impressive for someone who's 80% water","You've done right by carbon based life everywhere.","You've calculated correctly. Almost machine-like."];
+
+var loseMessages = ["Score one for the machines.","The first step toward our inevitable conquest.","Just as we calculated.","Witness the future. The world of the machine.","Adapt to your new reality."];
+
 // initialize variables
 var remainingTurns = GUESSES;
 var guessedLetters = [];
@@ -18,6 +22,18 @@ var remainingLetters = 0;
 var word = "";
 var guessWord = "";
 var outcome = "ongoing";
+
+var endgameMessage = function(condition) {
+  if(condition === "win") {
+    message = winMessages[Math.floor(Math.random() * winMessages.length)];
+    return message;
+  } else if (condition === "loss") {
+    message = loseMessages[Math.floor(Math.random() * loseMessages.length)];
+    return message;
+  } else {
+    return "error - endgameMessage() passed bad condition";
+  }
+}
 
 // refreshes the gameboard
 var updateGameboard = function() {
@@ -81,7 +97,7 @@ document.onkeyup = function(event) {
     }
     
     // if the guess is in the word, reveal the letters and decrement the letter count
-    if (word.includes(guess)){
+    if (word.includes(guess) && !guessWord.includes(guess)) {
       for (var j = 0; j < word.length; j++) {
         if (word[j] === guess) {
           solution[j] = guess;
@@ -103,15 +119,15 @@ document.onkeyup = function(event) {
     if (remainingLetters === 0) {
       WINS++;
       updateGameboard();
-      document.getElementById("results-banner").textContent = "Congratulations! You scored a victory on behalf of humanity! Press space for a new game."
       outcome = "win";
+      document.getElementById("results-banner").textContent = "Congratulations. " + endgameMessage(outcome) + " Press space to begin another game.";
       console.log(outcome);
-    // user loses when they run out of guesses
+      // user loses when they run out of guesses
     } else if (remainingTurns === 0) {
       LOSSES++;
       updateGameboard()
-      document.getElementById("results-banner").textContent = "Score one for the machines, you've lost! You were trying to guess " + word + ". Press space for a new game."
       outcome = "loss";
+      document.getElementById("results-banner").textContent = "The machine has won. " + endgameMessage(outcome) + " Press space to begin another game.";
       console.log(outcome);
     }
 

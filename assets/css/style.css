@@ -14,3 +14,12 @@ h2 {
 p {
   font-family: 'VT323', monospace;
 }
+
+header {
+  background-color: black;
+  border-bottom: 2px solid green;
+}
+
+#results-banner {
+  font-size: 3em;
+}
