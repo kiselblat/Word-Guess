@@ -12,7 +12,7 @@ var LOSSES = 0;
 
 var winMessages = ["You scored a win on behalf of humanity.","Pretty good for a meatbag.","Impressive for someone who's 80% water","You've done right by carbon based life everywhere.","You've calculated correctly. Almost machine-like."];
 
-var loseMessages = ["Score one for the machines.","The first step toward our inevitable conquest.","Just as we calculated.","Witness the future. The world of the machine.","Adapt to your new reality."];
+var loseMessages = ["Score one for the machines.","The first step toward our inevitable conquest is complete.","Just as we calculated.","Witness the future. The world of the machine.","Adapt to your new reality."];
 
 // initialize variables
 var remainingTurns = GUESSES;
@@ -127,7 +127,7 @@ document.onkeyup = function(event) {
       LOSSES++;
       updateGameboard()
       outcome = "loss";
-      document.getElementById("results-banner").textContent = "The machine has won. " + endgameMessage(outcome) + " Press space to begin another game.";
+      document.getElementById("results-banner").textContent = "The machine has won. You were trying to guess " + word + "." + endgameMessage(outcome) + " Press space to begin another game.";
       console.log(outcome);
     }
 
