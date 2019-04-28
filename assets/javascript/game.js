@@ -10,7 +10,7 @@ var GUESSES = 10
 var WINS = 0;
 var LOSSES = 0;
 
-var winMessages = ["You scored a win on behalf of humanity.","Pretty good for a meatbag.","Impressive for someone who's 80% water","You've done right by carbon based life everywhere.","You've calculated correctly. Almost machine-like."];
+var winMessages = ["You scored a win on behalf of humanity.","Pretty good for a meatbag.","Impressive for someone who's 80% water.","You've done right by carbon based life everywhere.","You've calculated correctly. Almost machine-like."];
 
 var loseMessages = ["Score one for the machines.","The first step toward our inevitable conquest is complete.","Just as we calculated.","Witness the future. The world of the machine.","Adapt to your new reality."];
 
@@ -23,6 +23,7 @@ var word = "";
 var guessWord = "";
 var outcome = "ongoing";
 
+// picks pithy endgame dialogue
 var endgameMessage = function(condition) {
   if(condition === "win") {
     message = winMessages[Math.floor(Math.random() * winMessages.length)];
@@ -44,8 +45,16 @@ var updateGameboard = function() {
   document.getElementById("losses").textContent = LOSSES;
 }
 
+// sends game info to the console
+var logGame = function() {
+  console.log(solution);
+  console.log("remaining letters: ", remainingLetters);
+  console.log("remaining turns: ", remainingTurns);
+}
+
 // starts a new game
 var newGame = function() {
+  console.log("new game")
   document.getElementById("results-banner").textContent = "";
   outcome = "ongoing";
   guessedLetters = [];
@@ -59,9 +68,7 @@ var newGame = function() {
     remainingLetters ++;
     }
   guessWord = solution.join(" ");
-  console.log(solution);
-  console.log(remainingLetters);
-  console.log(remainingTurns);
+  logGame();
   updateGameboard();
 }
 
@@ -90,7 +97,7 @@ document.onkeyup = function(event) {
       console.log("user didn't guess a letter");
       return;
     } else if (guessedLetters.includes(guess)) {
-      console.log("already guessed");
+      console.log("letter already guessed");
       return;
     } else {
       console.log("user guessed: ", guess)
@@ -110,10 +117,7 @@ document.onkeyup = function(event) {
     guessedLetters.push(guess);
     remainingTurns--;
     }
-    
-    console.log(solution);
-    console.log(remainingLetters);
-    console.log(remainingTurns);
+    logGame();
 
     // user wins if remaining letters reaches zero
     if (remainingLetters === 0) {
@@ -122,12 +126,12 @@ document.onkeyup = function(event) {
       outcome = "win";
       document.getElementById("results-banner").textContent = "Congratulations. " + endgameMessage(outcome) + " Press space to begin another game.";
       console.log(outcome);
-      // user loses when they run out of guesses
+    // user loses when they run out of guesses
     } else if (remainingTurns === 0) {
       LOSSES++;
       updateGameboard()
       outcome = "loss";
-      document.getElementById("results-banner").textContent = "The machine has won. You were trying to guess " + word + "." + endgameMessage(outcome) + " Press space to begin another game.";
+      document.getElementById("results-banner").textContent = "The machine has won. You were trying to guess " + word + ". " + endgameMessage(outcome) + " Press space to begin another game.";
       console.log(outcome);
     }
 
@@ -135,6 +139,7 @@ document.onkeyup = function(event) {
   } else if (!(outcome === "ongoing") && (guess === " ")) {
     console.log("game over");
     newGame();
+  // ignore anything but spacebar
   } else if (!(outcome === "ongoing")) {
     console.log("user didn't press space");
     return;
