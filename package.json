@@ -1,0 +1,27 @@
+{
+  "name": "word-guess",
+  "version": "1.1.0",
+  "description": "Hangman implemented in javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiselblat/Word-Guess.git"
+  },
+  "keywords": [
+    "hangman",
+    "javascript",
+    "exercise"
+  ],
+  "author": "Tom Christ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kiselblat/Word-Guess/issues"
+  },
+  "homepage": "https://github.com/kiselblat/Word-Guess#readme",
+  "dependencies": {
+    "inquirer": "^6.3.1"
+  }
+}
