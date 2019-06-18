@@ -1,8 +1,7 @@
 var Word = require('./Word.js')
 
-var Hangman = function (word , guesses) {
+var Hangman = function (word) {
   this.word = new Word(word);
-  this.guesses = guesses;
   this.answer = "";
   this.guessedLetters = [];
 
@@ -37,7 +36,6 @@ var Hangman = function (word , guesses) {
       // console.log(remaining , remainingNew , this.guessedLetters , this.guesses);
       // Wrong guess
       if (remaining === remainingNew) {
-        this.guesses--;
         return false;
       // Right guess
       } else if (remaining > remainingNew) {
@@ -52,7 +50,6 @@ var Hangman = function (word , guesses) {
     this.answer += this.word.word[i].letter;
   }
   // console.log(this.answer);
-
 }
 
 module.exports = Hangman;

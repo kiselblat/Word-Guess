@@ -13,14 +13,12 @@ var Word = function(word) {
       this.word[i].guessLetter(letter);
     }
   }
-
-  
-    
-    for (var i = 0 ; i < word.length ; i++) {
-      var newLetter = new Letter(word[i]);
-      this.word.push(newLetter);
-    }
+ 
+  for (var i = 0 ; i < word.length ; i++) {
+    var newLetter = new Letter(word[i]);
+    this.word.push(newLetter);
   }
+}
   
 module.exports = Word;
 

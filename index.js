@@ -5,6 +5,11 @@ var Hangman = require('./assets/javascript/Hangman.js');
 
 // empty object to be replaced by a Hangman object when the game begins
 var game = {};
+var remainingGuesses = 0;
+
+// keeps track of games this session
+var wins = 0;
+var losses = 0;
 
 // game control and theme variables
 var GUESSES = 10;
@@ -32,7 +37,6 @@ var WORDS = [
   "artificial intelligence",
   "world wide web",
 ];
-
 var winnerMessages = [
   "You scored a win on behalf of humanity.",
   "Pretty good for a meatbag.",
@@ -48,16 +52,14 @@ var losersMessages = [
   "Adapt to your new reality."
 ];
 
-// keeps track of games this session
-var wins = 0;
-var losses = 0;
 
 // begins a new game
 var newGame = function() {
   var pickWord = function(choices) {
     return choices[Math.floor(Math.random() * choices.length)];
   }
-  game = new Hangman(pickWord(WORDS) , GUESSES);
+  game = new Hangman(pickWord(WORDS));
+  remainingGuesses = GUESSES;
   // console.log(game.answer);
   gameLoop();
 }
@@ -118,7 +120,8 @@ var makeGuess = function(guessResult) {
     console.log("Affirmative!");
   } else if (!guessResult) {
     // bad guess
-    console.log(`Negative! ${game.guesses} tries remaining.`);
+    remainingGuesses--;
+    console.log(`Negative! ${remainingGuesses} tries remaining.`);
   };
 }
 
@@ -146,15 +149,15 @@ var readGuess = function() {
 var gameLoop = function() {
   console.log(game.word + '');
   // keep playing
-  if ((game.remainingLetters() > 0) && (game.guesses > 0)) {
+  if ((game.remainingLetters() > 0) && (remainingGuesses > 0)) {
     readGuess();
   // win
-  } else if ((game.remainingLetters() <= 0) && (game.guesses > 0)) { 
+  } else if ((game.remainingLetters() <= 0) && (remainingGuesses > 0)) { 
     wins++;
     winner();
     nextGame();
   // lose
-  } else if ((game.remainingLetters() > 0) && (game.guesses <= 0)) {
+  } else if ((game.remainingLetters() > 0) && (remainingGuesses <= 0)) {
     losses++;
     loser();
     nextGame();
