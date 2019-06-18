@@ -16,7 +16,7 @@ var Letter = function(letter) {
     }
   }
 
-  if (this.letter === " ") {
+  if (!this.letter.match(/[a-z]/i)) {
     this.guessed = true;
   }
 }
@@ -31,3 +31,6 @@ module.exports = Letter;
 // var lettTwo = new Letter(' ');
 // console.log(lettTwo.guessed);
 // console.log('#' + lettTwo + '#');
+// var lettThree = new Letter('#');
+// console.log(lettThree.guessed);
+// console.log('#' + lettThree + '#');
