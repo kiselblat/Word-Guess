@@ -1,9 +1,13 @@
 # Word-Guess
 
-1. [Installation and Requirements](##Installation-and-Requirements)
-2. [How to Play](##How-to-Play)
-3. [Overview](##Overview)
-4. [About](##About)
+1. [Installation and Requirements](#installation-and-requirements)
+2. [How to Play](#how-to-play)
+3. [Overview](#overview)
+    1. [`Letter.js`](#letter.js)
+    2. [`Word.js`](#word.js)
+    3. [`Hangman.js`](#hangman.js)
+    4. [`index.js`](`index.js`)
+4. [About](#about)
 
 A hangman style game library and implementation in javascript for both Web and command line for those who want that sort thing. The actual game takes the form of Compu-Guess, a battle of the minds between you, the user, and the machine, a super-intelligence that has emerged from cyberspace to make you guess words.
 
@@ -46,6 +50,11 @@ The remaining files in `assets/javascript/` each define objects that share their
 ### `Letter.js`
 
 A `Letter` object takes in and stores an a-z character and displays an underscore in its place until it has been guessed.
+Non-alpha characters, notably spaces are initialized as already guessed. This way, `Word` never counts them in `.remaining
+
+#### `.toString`
+
+
 
 ### `Word.js`
 

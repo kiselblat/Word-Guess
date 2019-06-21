@@ -1,6 +1,7 @@
 var Letter = function(letter) {
   this.letter = letter;
   this.guessed = false;
+  this.alphaChar = true;
 
   this.toString = function() {
     if (this.guessed) {
@@ -18,6 +19,7 @@ var Letter = function(letter) {
 
   if (!this.letter.match(/[a-z]/i)) {
     this.guessed = true;
+    this.alphaChar = false;
   }
 }
 
