@@ -1,65 +1,27 @@
-
 // depenendancies
 var inquirer = require("inquirer");
 var Hangman = require('./assets/javascript/Hangman.js');
 
 // empty object to be replaced by a Hangman object when the game begins
 var game = {};
-var remainingGuesses = 0;
 
 // keeps track of games this session
 var wins = 0;
 var losses = 0;
 
 // game control and theme variables
-var GUESSES = 10;
-var WORDS = [
-  "central processing unit",
-  "memory",
-  "pixel",
-  "gigabyte",
-  "motherboard",
-  "qwerty",
-  "binary code",
-  "keyboard & mouse",
-  "disk drive",
-  "hard disk",
-  "download",
-  "digital",
-  "electronic",
-  "network",
-  "server",
-  "laptop",
-  "input/output",
-  "circuit",
-  "bandwidth",
-  "algorithm",
-  "artificial intelligence",
-  "world wide web",
-];
-var winnerMessages = [
-  "You scored a win on behalf of humanity.",
-  "Pretty good for a meatbag.",
-  "Impressive for someone who's 80% water.",
-  "You've done right by carbon based life everywhere.",
-  "You've calculated correctly. Almost machine-like."
-];
-var losersMessages = [
-  "Score one for the machines.",
-  "The first step toward our inevitable conquest is complete.",
-  "Just as we calculated.",
-  "Witness the future. The world of the machine.",
-  "Adapt to your new reality."
-];
+var gameObj = require('./assets/javascript/compuguess.js');
 
+// tells you the title and tagline of the game before the first game
+var firstRun = function() {
+  console.log(gameObj.title);
+  console.log(gameObj.tagline);
+  newGame();
+}
 
 // begins a new game
 var newGame = function() {
-  var pickWord = function(choices) {
-    return choices[Math.floor(Math.random() * choices.length)];
-  }
-  game = new Hangman(pickWord(WORDS));
-  remainingGuesses = GUESSES;
+  game = new Hangman(gameObj.pickWord() , gameObj.guesses);
   // console.log(game.answer);
   gameLoop();
 }
@@ -69,7 +31,7 @@ var nextGame = function() {
   inquirer.prompt([
     {
       name : 'continue',
-      message : "'Y/y' for another game. Any other key to quit."
+      message : "'y' for another game. All others quit."
     }
   ]).then(function(answer) {
     if ((answer.continue === 'y') || (answer.continue === 'Y')) {
@@ -80,24 +42,18 @@ var nextGame = function() {
   });
 }
 
-// picks and displays pithy dialogue for the winner
+// gets pithy dialogue for the winner
 var winner = function() {
-  var winnerMessage = function() {
-    return winnerMessages[Math.floor(Math.random() * winnerMessages.length)];
-  }
   console.log("Congratulations!")
-  console.log(winnerMessage());
-  console.log(`You have won ${wins} games, and lost ${losses}`)
+  console.log(gameObj.winnerMessage());
+  console.log(`${wins} wins, ${losses} losses`);
 }
 
-// picks picks and displays cutting trash talk for the loser
+// gets cutting trash talk for the loser
 var loser = function() {
-  var losersMessage = function() {
-    return losersMessages[Math.floor(Math.random() * losersMessages.length)];
-  }
-  console.log(`The word was: ${game.answer}`)
-  console.log(losersMessage());
-  console.log(`You have won ${wins} games, and lost ${losses}`)
+  console.log(game.revealAnswer());
+  console.log(gameObj.losersMessage());
+  console.log(`${wins} wins, ${losses} losses`);
 }
 
 // validates the user's guess
@@ -111,17 +67,16 @@ var isValidLetter = function (str) {
 
 // returns the results of the guess
 var makeGuess = function(guessResult) {
-  // console.log(guessResult);
+  // already guessed
   if (guessResult === 'guessed') {
-    // already guessed
-    console.log("Already guessed. Try again.");
-  } else if (guessResult) {
-    // good guess
-    console.log("Affirmative!");
-  } else if (!guessResult) {
-    // bad guess
-    remainingGuesses--;
-    console.log(`Negative! ${remainingGuesses} tries remaining.`);
+    console.log(gameObj.tryAgain());
+  // good guess
+  } else if (guessResult === true) {
+    console.log(gameObj.goodGuess());
+  // bad guess
+  } else if (guessResult === false) {
+    console.log(gameObj.badGuess());
+    console.log(`${game.guesses} tries left`);
   };
 }
 
@@ -134,11 +89,13 @@ var readGuess = function() {
     }
   ]).then(function(guess) {
     var guessLetter = guess.letter.toLowerCase();
+    // is a valid letter
     if (isValidLetter(guessLetter)) {
+      // game.guess returns the results of each guess
       makeGuess(game.guess(guessLetter));
       gameLoop();
+    // not a valid letter
     } else {
-      // not a valid letter
       console.log("Not a valid letter");
       gameLoop();
     }
@@ -149,15 +106,15 @@ var readGuess = function() {
 var gameLoop = function() {
   console.log(game.word + '');
   // keep playing
-  if ((game.remainingLetters() > 0) && (remainingGuesses > 0)) {
+  if (!game.isSolved() && (game.guesses > 0)) {
     readGuess();
   // win
-  } else if ((game.remainingLetters() <= 0) && (remainingGuesses > 0)) { 
+  } else if (game.isSolved() && (game.guesses > 0)) { 
     wins++;
     winner();
     nextGame();
   // lose
-  } else if ((game.remainingLetters() > 0) && (remainingGuesses <= 0)) {
+  } else if (!game.isSolved() > 0 && (game.guesses <= 0)) {
     losses++;
     loser();
     nextGame();
@@ -167,10 +124,5 @@ var gameLoop = function() {
   }
 }
 
-// First run splash
-console.log(`|------------------------------------------------------------------------------|`);
-console.log(`|                            C O M P U - G U E S S                             |`);
-console.log(`|                          Match wits with the machine                         |`);
-console.log(`|------------------------------------------------------------------------------|`);
-
-newGame();
+// runs the first game
+firstRun();

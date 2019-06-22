@@ -49,25 +49,132 @@ The remaining files in `assets/javascript/` each define objects that share their
 
 ### `Letter.js`
 
+1. [`this.letter`](#letterletter)
+2. [`this.guessed`](#letterguessed)
+3. [`this.isAlpha()`](#letterisalpha)
+4. [`this.toString()`](#lettertostring)
+5. [`this.guessLetter(`*`char`*`)`](#letterguessletterchar)
+
 A `Letter` object takes in and stores an a-z character and displays an underscore in its place until it has been guessed.
-Non-alpha characters, notably spaces are initialized as already guessed. This way, `Word` never counts them in `.remaining
+`Letter`s are built so that they, and their methods will only take one character.
+Non-alpha characters, notably spaces are initialized as already guessed. This way, `Word` never counts them in `.remainingLetters()`.
 
-#### `.toString`
+#### `Letter.letter`
 
+This property is used to access the actual letter the `Letter` object represents. When created, `.letter` will only take the first character in any string passed into `Letter()`.
 
+#### `Letter.guessed`
+
+A boolean value when set to true causes the `toString()` to return `.letter`.
+
+#### `Letter.isAlpha()`
+
+Returns `false` when `this.letter` is not an a-z character, otherwise returns `true`. `isAlpha()` is invoked when a new `Letter` is created to automatically reveal spaces and symbols.
+
+#### `Letter.toString()`
+
+Returns `'_'` unless the `Letter` has been `.guessed`. It is so named to take advantage of default JavaScript behavior that invokes a method named `toString` whenever that object is used in a string-like fashion.
+
+#### `Letter.guessLetter(`*`char`*`)`
+
+Takes in a letter and sets `.guessed` to true if it matches `.letter`. If the ``*`char`*`` doesn't match, `.guessLetter` will return `false`. `.guessLetter` will only check the first character in any string passed to it.
+
+---
 
 ### `Word.js`
 
+1. [`this.word[`*`i`*`]`](#wordword)
+2. [`this.toString()`](#wordtostring)
+3. [`this.guessLetter(`*`char`*`)`](#wordguessletterchar)
+4. [`this.guessWord(`*`string`*`)`](#wordguesswordstring)
+5. [`this.remainingLetters()`](#wordremainingletters)
+6. [`this.getAnswer()`](#wordgetanswers)
+7. [`this.revealWord()`](#wordrevealword)
+8. [`this.includes(`*`char`*`)`](#wordincludeschar)
+
 A `Word` is an array of `Letter` objects, and as such depends on the presences of `Letter.js` in the same directory. `Word` is also responsible for displaying itself with its `.toString` method.
+
+#### `Word.word[`*`i`*`]`
+
+The only property in a `Word` is the `.word` array, which contains only `Letter`s.
+
+#### `Word.toString()`
+
+Returns the `Word` in a string, with each `Letter` displaying according to its `Letter.guessed` status. It is so named to take advantage of default JavaScript behavior that invokes a method named `toString` whenever that object is used in a string-like fashion.
+
+#### `Word.guessLetter(`*`char`*`)`
+
+Takes a letter and checks each `Letter` by using `Letter.guessLetter(`*`char`*`)`. 
+
+#### `Word.guessWord(`*`string`*`)`
+
+Takes in a word guess in the form of a string. If it's not the word, `.guessWord` returns `false`, otherwise it returns the results of calling `this.revealWord()`.
+
+#### `Word.remainingLetters()`
+
+Returns the number of `Letter`s that are not `guessed`.
+
+#### `Word.getAnswer()`
+
+As you'd expect, this function returns the solution to the hidden word, in the form of a string.
+
+#### `Word.revealWord()`
+
+Reveal word is intended to be called after a game has been determined, or a word has been guessed with `guessWord()`. `.revealWord()` sets each `Letter` to `guessed` and then returns a call to `.toString()`
+
+#### `Word.includes(`*`char`*`)`
+
+Returns `true` or `false` if the **currently revealed** letters in a word include the passed character, thus behaving similarly to `.toString()`.
 
 ### `Hangman.js`
 
-A `Hangman` object takes in a `Word` and then provides a framework for accessing and guessing. A `Hangman` not only handles guessing through the `.guess` method which, unlike the `Word.guess(char)` function will report back `true`/`false` whether the guess was successful or not, but also stores guessed letters, and has a way of accessing the answer.
-`Hangman` does not keep track of how many wrong guesses the player gets, or has left.
+1. [`this.word`](#hangmanword)
+2. [`this.guesses`](#hangmanguesses)
+3. [`this.answer`](#hangmananswer)
+4. [`this.guessedLetters`](#hangmanguessedletters)
+5. [`this.isSolved()`](#hangmanissolved)
+6. [`this.isGuessed()`](#hangmanisguessed)
+7. [`this.guess(`*`char`*`)`](#hangmanguesschar)
+8. [`this.revealAnswer()](#hangmanrevealanswer)
+
+A `Hangman` object takes in a `Word` and then provides a framework for accessing and guessing. A `Hangman` not only handles guessing through the `.guess` method which will report back `true`/`false`/`guessed` whether the guess was successful or not, but also stores guessed letters, and has a way of accessing the answer.
+
+#### `Hangman.word`
+
+Contains the `Word` object that makes the backbone of the `Hangman` instance.
+
+#### `Hangman.guesses`
+
+Keeps track of the wrong tries left in the game. Initialized from a value passed into the `new Hangman` when it is invoked.
+
+#### `Hangman.answer`
+
+A convenient parameter initialized with the `Word.getAnswer()` method. Provides a way to peek into the answer to the `Hangman`.
+
+#### `Hangman.guessedLetters`
+
+The array in which all wrong guesses go. Currently this parameter is the only way to access the guessed letters.
+
+#### `Hangman.isSolved()`
+
+Returns `true` or `false` whether the `Word` is fully solved or not, respectively.
+
+#### `Hangman.isGuessed(`*`char`*`)`
+
+Returns `true` or `false` whether the passed character has already been guessed, but is not in the `Word`.
+
+#### `Hangman.guess(`*`char`*`)`
+
+Returns `'guessed'`, `true`, or `false` depending on the character passed to the method. If it has already been guessed or revealed in the `Word`. If it is in the `Word` then that and all matching `Letter`s are revealed. Or if it hasn't been guessed and isn't in the `Word`, then that guess is added to `guessedLetters`.
+
+#### `Hangman.revealAnswer()`
+
+Pretty much just calls `Word.revealAnswer()` so there's a convenient way to do that through the `Hangman`.
 
 ### `index.js`
 
 This is file is what makes it Compu-Guess. `index.js` contains the game logic (including the number of wrong guesses), the list of potential words, and all the endgame messages.
+In the future, I would like to further objectify the Compu-Guess data, and eventually make it so any Hangman can be implemented with a variety of different methods. Lists, APIs, calls to other data sources.
 
 ## About
 

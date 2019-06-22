@@ -1,9 +1,18 @@
 var Word = require('./Word.js')
 
-var Hangman = function (word) {
+var Hangman = function (word , guesses) {
   this.word = new Word(word);
-  this.answer = "";
+  this.guesses = guesses;
+  this.answer = this.word.getAnswer();
   this.guessedLetters = [];
+  
+  this.isSolved = function() {
+    if(this.word.remainingLetters() > 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   this.isGuessed = function(letter) {
     if (this.guessedLetters.includes(letter)) {
@@ -13,43 +22,25 @@ var Hangman = function (word) {
     }
   }
 
-  this.remainingLetters = function() {
-    var remaining = 0;
-    for(var i = 0 ; i < this.word.word.length ; i++) {
-      if (!this.word.word[i].guessed) {
-        remaining++;
-      } 
-    }
-    return remaining;
-    }
-
   this.guess = function (letter) {
-    var remaining = this.remainingLetters();
-    var remainingNew = 0;
-    
-    if (this.isGuessed(letter)) {
+    // Already guessed
+    if (this.isGuessed(letter) || this.word.includes(letter)) {
       return 'guessed';
-    } else {
+    // Wrong guess
+    } else if (this.word.guessLetter(letter) === false){
       this.guessedLetters.push(letter);
-      this.word.guess(letter);
-      remainingNew = this.remainingLetters();
-      // console.log(remaining , remainingNew , this.guessedLetters , this.guesses);
-      // Wrong guess
-      if (remaining === remainingNew) {
-        return false;
-      // Right guess
-      } else if (remaining > remainingNew) {
-        return true;
-      } else {
-        console.log("Error! Letter became unguessed!");
-      }
+      this.guesses--;
+      return false;
+    //Right Guess
+    } else {
+      this.word.guessLetter(letter);
+      return true;
     }
   }
-  
-  for (var i=0 ; i < this.word.word.length ; i++) {
-    this.answer += this.word.word[i].letter;
+
+  this.revealAnswer = function() {
+    return this.word.revealWord();
   }
-  // console.log(this.answer);
 }
 
 module.exports = Hangman;
