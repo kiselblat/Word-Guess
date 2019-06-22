@@ -9,13 +9,14 @@ var game = {};
 var wins = 0;
 var losses = 0;
 
-// game control and theme variables
+// game control and theme
 var gameObj = require('./assets/javascript/compuguess.js');
 
 // tells you the title and tagline of the game before the first game
 var firstRun = function() {
   console.log(gameObj.title);
   console.log(gameObj.tagline);
+  console.log(gameObj.instructions.join('\n'))
   newGame();
 }
 
@@ -36,8 +37,6 @@ var nextGame = function() {
   ]).then(function(answer) {
     if ((answer.continue === 'y') || (answer.continue === 'Y')) {
       newGame();
-    } else {
-      console.log("Goodbye");
     }
   });
 }
@@ -96,7 +95,7 @@ var readGuess = function() {
       gameLoop();
     // not a valid letter
     } else {
-      console.log("Not a valid letter");
+      console.log("Invalid entry");
       gameLoop();
     }
   });
@@ -104,9 +103,9 @@ var readGuess = function() {
 
 // handles the win/loss/keep playing conditions
 var gameLoop = function() {
-  console.log(game.word + '');
   // keep playing
   if (!game.isSolved() && (game.guesses > 0)) {
+    console.log(game.word + '');
     readGuess();
   // win
   } else if (game.isSolved() && (game.guesses > 0)) { 
