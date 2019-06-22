@@ -10,19 +10,19 @@ var wins = 0;
 var losses = 0;
 
 // game control and theme
-var gameObj = require('./assets/javascript/compuguess.js');
+var gameObject = require('./assets/javascript/compuguess.js');
 
 // tells you the title and tagline of the game before the first game
 var firstRun = function() {
-  console.log(gameObj.title);
-  console.log(gameObj.tagline);
-  console.log(gameObj.instructions.join('\n'))
+  console.log(gameObject.title);
+  console.log(gameObject.tagline);
+  console.log(gameObject.instructions.join('\n'))
   newGame();
 }
 
 // begins a new game
 var newGame = function() {
-  game = new Hangman(gameObj.pickWord() , gameObj.guesses);
+  game = new Hangman(gameObject.pickWord() , gameObject.guesses);
   // console.log(game.answer);
   gameLoop();
 }
@@ -44,14 +44,14 @@ var nextGame = function() {
 // gets pithy dialogue for the winner
 var winner = function() {
   console.log("Congratulations!")
-  console.log(gameObj.winnerMessage());
+  console.log(gameObject.winnerMessage());
   console.log(`${wins} wins, ${losses} losses`);
 }
 
 // gets cutting trash talk for the loser
 var loser = function() {
   console.log(game.revealAnswer());
-  console.log(gameObj.losersMessage());
+  console.log(gameObject.losersMessage());
   console.log(`${wins} wins, ${losses} losses`);
 }
 
@@ -68,13 +68,13 @@ var isValidLetter = function (str) {
 var makeGuess = function(guessResult) {
   // already guessed
   if (guessResult === 'guessed') {
-    console.log(gameObj.tryAgain());
+    console.log(gameObject.tryAgain());
   // good guess
   } else if (guessResult === true) {
-    console.log(gameObj.goodGuess());
+    console.log(gameObject.goodGuess());
   // bad guess
   } else if (guessResult === false) {
-    console.log(gameObj.badGuess());
+    console.log(gameObject.badGuess());
     console.log(`${game.guesses} tries left`);
   };
 }

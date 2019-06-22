@@ -3,10 +3,11 @@
 1. [Installation and Requirements](#installation-and-requirements)
 2. [How to Play](#how-to-play)
 3. [Overview](#overview)
-    1. [`Letter.js`](#letter.js)
-    2. [`Word.js`](#word.js)
-    3. [`Hangman.js`](#hangman.js)
-    4. [`index.js`](`index.js`)
+    1. [`Letter.js`](#letterjs)
+    2. [`Word.js`](#wordjs)
+    3. [`Hangman.js`](#hangmanjs)
+    4. [`compuguess.js`](#compuguessjs)
+    5. [`index.js`](`indexjs`)
 4. [About](#about)
 
 A hangman style game library and implementation in javascript for both Web and command line for those who want that sort thing. The actual game takes the form of Compu-Guess, a battle of the minds between you, the user, and the machine, a super-intelligence that has emerged from cyberspace to make you guess words.
@@ -135,7 +136,7 @@ Returns `true` or `false` if the **currently revealed** letters in a word includ
 5. [`this.isSolved()`](#hangmanissolved)
 6. [`this.isGuessed()`](#hangmanisguessed)
 7. [`this.guess(`*`char`*`)`](#hangmanguesschar)
-8. [`this.revealAnswer()](#hangmanrevealanswer)
+8. [`this.revealAnswer()`](#hangmanrevealanswer)
 
 A `Hangman` object takes in a `Word` and then provides a framework for accessing and guessing. A `Hangman` not only handles guessing through the `.guess` method which will report back `true`/`false`/`guessed` whether the guess was successful or not, but also stores guessed letters, and has a way of accessing the answer.
 
@@ -171,10 +172,74 @@ Returns `'guessed'`, `true`, or `false` depending on the character passed to the
 
 Pretty much just calls `Word.revealAnswer()` so there's a convenient way to do that through the `Hangman`.
 
+### `compuguess.js`
+
+1. [`compuguess.title`](#compuguesstitle)
+2. [`compuguess.tagline`](#compuguesstagline)
+3. [`compuguess.instructions`](#compuguessinstructions)
+4. [`compuguess.guesses`](#compuguessguesses)
+5. [`compuguess.winnerMessage`](#compuguesswinnermessage)
+6. [`compuguess.losersMessage`](#compuguesslosersmessage)
+7. [`compuguess.pickWord`](#compuguesspickword)
+8. [`compuguess.goodGuess`](#compuguessgoodguess)
+9. [`compuguess.badGuess`](#compuguessbadguess)
+10. [`compuguess.tryAgain`](#compuguesstryagain)
+
+Defines a `gameObject` that provides necessary game rules, choices, and output. Most of the data in the `compuguess` object are user outputs to add flavor and a list of possible words to guess. All the following entries are called by code in `index.js` and are therefore required.
+
+#### `compuguess.title`
+
+A string that contains the title of the `gameObject`.
+
+#### `compuguess.tagline`
+
+A string that contains a fun tagline to add atmosphere.
+
+#### `compuguess.instructions`
+
+A string that contains instructions. Incase the user has never heard of this game before.
+
+#### `compuguess.guesses`
+
+Set to an integer number of wrong guesses before the user loses. Gets passed into `Hangman` as the second parameter.
+
+#### `compuguess.winnerMessage`
+
+A required method that serves up a sweet congrats on being a winner.
+
+#### `compuguess.losersMessage`
+
+A required method that tosses out some attitude if the user's a loser.
+
+#### `compuguess.pickWord`
+
+A required method that picks a word to instantiate the `Hangman` object with.
+
+#### `compuguess.goodGuess`
+
+A required method that gives the user positive reinforcement on good guesses.
+
+#### `compuguess.badGuess`
+
+A required method that gives out some sly negative feedback on bad guesses.
+
+#### `compuguess.tryAgain`
+
+A required method that prompts the user to try again on duplicate or already discovered entries.
+
+
 ### `index.js`
 
-This is file is what makes it Compu-Guess. `index.js` contains the game logic (including the number of wrong guesses), the list of potential words, and all the endgame messages.
-In the future, I would like to further objectify the Compu-Guess data, and eventually make it so any Hangman can be implemented with a variety of different methods. Lists, APIs, calls to other data sources.
+Implements code that: 
+
+1. Loads a `gameObject` from a file
+2. Instantiates a new `Hangman`
+3. Executes the game loop
+4. Generates console output based loop results
+5. Records wins and losses for the session
+6. Gives an option to play again
+
+`index.js` is where the `gameObject`, in this case Compu-Guess, combines with the `Hangman.js` object constructor to make a functioning game. `index.js` uses the `inquirer` package to take in user input and pass it into the game.
 
 ## About
 
