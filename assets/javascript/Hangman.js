@@ -1,11 +1,13 @@
 var Word = require('./Word.js')
 
 var Hangman = function (word , guesses) {
+  // the puzzle word, stored as a new Word object
   this.word = new Word(word);
   this.guesses = guesses;
   this.answer = this.word.getAnswer();
   this.guessedLetters = [];
   
+  // returns true when the Word is solved
   this.isSolved = function() {
     if(this.word.remainingLetters() > 0) {
       return false;
@@ -14,6 +16,16 @@ var Hangman = function (word , guesses) {
     }
   }
 
+  // returns true when there are no more wrong guesses
+  this.noGuesses = function() {
+    if(this.guesses <= 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // returns true if the param is in guessedLetters
   this.isGuessed = function(letter) {
     if (this.guessedLetters.includes(letter)) {
       return true;
@@ -22,6 +34,7 @@ var Hangman = function (word , guesses) {
     }
   }
 
+  // guesses a letter and returns 'guessed', true, or false
   this.guess = function (letter) {
     // Already guessed
     if (this.isGuessed(letter) || this.word.includes(letter)) {
@@ -38,39 +51,11 @@ var Hangman = function (word , guesses) {
     }
   }
 
+  // access to word.revealWord() from Hangman level
   this.revealAnswer = function() {
     return this.word.revealWord();
   }
 }
 
+// spread the love
 module.exports = Hangman;
-
-// var testGame = new Hangman('mississippi' , 10);
-// console.log(testGame.word + '');
-// console.log(testGame.guess('s'));
-// console.log(testGame.word + '');
-// console.log(testGame.guess('p'));
-// console.log(testGame.word + '');
-// console.log(testGame.guess('m'));
-// console.log(testGame.word + '');
-// console.log(testGame.guess('j'));
-// console.log(testGame.word + '');
-// console.log(testGame.guess('m'));
-// console.log(testGame.word + '');
-// console.log(testGame.guess('i'));
-// console.log(testGame.word + '');
-
-// var testGameTwo = new Hangman('sam i am' , 10);
-// console.log(testGameTwo.word + '');
-// console.log(testGameTwo.guess('s'));
-// console.log(testGameTwo.word + '');
-// console.log(testGameTwo.guess('a'));
-// console.log(testGameTwo.word + '');
-// console.log(testGameTwo.guess('m'));
-// console.log(testGameTwo.word + '');
-// console.log(testGameTwo.guess('j'));
-// console.log(testGameTwo.word + '');
-// console.log(testGameTwo.guess('m'));
-// console.log(testGameTwo.word + '');
-// console.log(testGameTwo.guess('i'));
-// console.log(testGameTwo.word + '');

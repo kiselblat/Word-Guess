@@ -134,23 +134,24 @@ Returns `true` or `false` if the **currently revealed** letters in a word includ
 3. [`this.answer`](#hangmananswer)
 4. [`this.guessedLetters`](#hangmanguessedletters)
 5. [`this.isSolved()`](#hangmanissolved)
-6. [`this.isGuessed()`](#hangmanisguessed)
-7. [`this.guess(`*`char`*`)`](#hangmanguesschar)
-8. [`this.revealAnswer()`](#hangmanrevealanswer)
+6. [`this.noGuesses()`](#hangmannoguesses)
+7. [`this.isGuessed()`](#hangmanisguessed)
+8. [`this.guess(`*`char`*`)`](#hangmanguesschar)
+9. [`this.revealAnswer()`](#hangmanrevealanswer)
 
 A `Hangman` object takes in a `Word` and then provides a framework for accessing and guessing. A `Hangman` not only handles guessing through the `.guess` method which will report back `true`/`false`/`guessed` whether the guess was successful or not, but also stores guessed letters, and has a way of accessing the answer.
 
 #### `Hangman.word`
 
-Contains the `Word` object that makes the backbone of the `Hangman` instance.
+The `Word` object that makes the backbone of the `Hangman` instance. `Hangman.word` gets set to a new `Word` when a new `Hangman` gets created by the game.
 
 #### `Hangman.guesses`
 
-Keeps track of the wrong tries left in the game. Initialized from a value passed into the `new Hangman` when it is invoked.
+Keeps track of the wrong tries left in the game. Initialized from a value passed into the `new Hangman` when it is invoked. `Hangman.guesses` is decremented after every wrong guess.
 
 #### `Hangman.answer`
 
-A convenient parameter initialized with the `Word.getAnswer()` method. Provides a way to peek into the answer to the `Hangman`.
+A convenient parameter initialized with the `Word.getAnswer()` method. Provides a way to peek into the answer to the `Hangman`. Someday, `Hangman.guess()` will hopefully allow for guessing whole answers at once, and this parameter may be useful. Or it will get depracated.
 
 #### `Hangman.guessedLetters`
 
@@ -158,7 +159,11 @@ The array in which all wrong guesses go. Currently this parameter is the only wa
 
 #### `Hangman.isSolved()`
 
-Returns `true` or `false` whether the `Word` is fully solved or not, respectively.
+Returns `true` or `false` whether the `Word` is fully solved or not, respectively. Used to register a win, but still abstracted from the concepts of victory and defeat.
+
+#### `Hangman.noGuesses()'
+
+Returns `true` when there are no more `guesses`. Used to register a loss, but not expressed in terms of winning and losing.
 
 #### `Hangman.isGuessed(`*`char`*`)`
 

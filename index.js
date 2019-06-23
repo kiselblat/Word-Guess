@@ -31,27 +31,25 @@ var newGame = function() {
 var nextGame = function() {
   inquirer.prompt([
     {
+      type : 'confirm',
       name : 'continue',
-      message : "'y' for another game. All others quit."
+      message : "Another game?",
     }
   ]).then(function(answer) {
-    if ((answer.continue === 'y') || (answer.continue === 'Y')) {
+    if (answer.continue) {
       newGame();
     }
   });
 }
 
-// gets pithy dialogue for the winner
-var winner = function() {
-  console.log("Congratulations!")
-  console.log(gameObject.winnerMessage());
-  console.log(`${wins} wins, ${losses} losses`);
-}
-
-// gets cutting trash talk for the loser
-var loser = function() {
+// gets pithy dialogue 
+var endGame = function(result) {
   console.log(game.revealAnswer());
-  console.log(gameObject.losersMessage());
+  if (result === 'win') {
+    console.log(gameObject.winnerMessage());
+  } else if (result === 'loss') {
+    console.log(gameObject.losersMessage());
+  }
   console.log(`${wins} wins, ${losses} losses`);
 }
 
@@ -64,7 +62,7 @@ var isValidLetter = function (str) {
   }
 }
 
-// returns the results of the guess
+// directs the results of the guess
 var makeGuess = function(guessResult) {
   // already guessed
   if (guessResult === 'guessed') {
@@ -104,18 +102,18 @@ var readGuess = function() {
 // handles the win/loss/keep playing conditions
 var gameLoop = function() {
   // keep playing
-  if (!game.isSolved() && (game.guesses > 0)) {
+  if (!game.isSolved() && !game.noGuesses()) {
     console.log(game.word + '');
     readGuess();
   // win
-  } else if (game.isSolved() && (game.guesses > 0)) { 
+  } else if (game.isSolved() && !game.noGuesses()) { 
     wins++;
-    winner();
+    endGame('win');
     nextGame();
   // lose
-  } else if (!game.isSolved() > 0 && (game.guesses <= 0)) {
+  } else if (!game.isSolved() && game.noGuesses()) {
     losses++;
-    loser();
+    endGame('loss');
     nextGame();
   // error
   } else {

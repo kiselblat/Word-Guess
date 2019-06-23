@@ -1,7 +1,10 @@
 var Letter = function(letter) {
-  //
+  // the letter this Letter represents
   this.letter = letter.substring(0 , 1);
+
+  // whether the Letter displays or not
   this.guessed = false;
+
   // returns true if .letter is in alphabet
   this.isAlpha = function() {
     if (this.letter.match(/[a-z]/i)) {
@@ -9,7 +12,8 @@ var Letter = function(letter) {
     } else {
       return false;
     }
-  }
+  };
+
   // displays .letter when Letter is .guessed
   this.toString = function() {
     if (this.guessed) {
@@ -18,6 +22,7 @@ var Letter = function(letter) {
       return '_';
     }
   };
+
   // checks if a guess is correct
   this.guessLetter = function(guess) {
     guess = guess.substring(0 , 1);
@@ -26,23 +31,12 @@ var Letter = function(letter) {
     } else {
       return false;
     }
-  }
+  };
+
   // not every character is a letter
   if (!this.isAlpha()) {
     this.guessed = true;
   }
-}
+};
 
 module.exports = Letter;
-
-// var lett = new Letter('a');
-// console.log(lett.toString());
-// lett.guessLetter('b');
-// lett.guessLetter('a');
-// console.log(lett.toString());
-// var lettTwo = new Letter(' ');
-// console.log(lettTwo.guessed);
-// console.log('#' + lettTwo + '#');
-// var lettThree = new Letter('#');
-// console.log(lettThree.guessed);
-// console.log('#' + lettThree + '#');
