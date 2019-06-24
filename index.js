@@ -103,7 +103,7 @@ var readGuess = function() {
 var gameLoop = function() {
   // keep playing
   if (!game.isSolved() && !game.noGuesses()) {
-    console.log(game.word + '');
+    console.log(game + '');
     readGuess();
   // win
   } else if (game.isSolved() && !game.noGuesses()) { 

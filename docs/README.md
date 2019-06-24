@@ -161,11 +161,11 @@ The array in which all wrong guesses go. Currently this parameter is the only wa
 
 #### 'Hangman.toString()'
 
-Does exactly what the `.toString()` function does for the `Word` object because it works by calling it, and returning the resulting string.
+Does exactly what the `.toString()` function does for the `Word` object because it works by calling it, and returning the resulting string. It is so named to take advantage of default JavaScript behavior that invokes a method named `toString` whenever that object is used in a string-like fashion.
 
 #### `Hangman.isSolved()`
 
-Returns `true` or `false` whether the `Word` is fully solved or not, respectively. Used to register a win, but still abstracted from the concepts of victory and defeat.
+Returns `true` or `false` whether the `Word` is fully solved or not. Used to register a win, but still abstracted from the concepts of victory and defeat.
 
 #### `Hangman.noGuesses()'
 
