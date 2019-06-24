@@ -10,7 +10,7 @@ var wins = 0;
 var losses = 0;
 
 // game control and theme
-var gameObject = compuguess;
+var gameObject = Compuguess;
 
 // tells you the title and tagline of the game before the first game
 var firstRun = function() {

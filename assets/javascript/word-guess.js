@@ -129,7 +129,7 @@ var Hangman = function (word , guesses) {
     return this.word.revealWord();
   }
 ;}
-var compuguess = {
+var Compuguess = {
   title : "C O M P U - G U E S S",
   tagline : 'Match wits with the machine!',
   instructions : ['Guess a letter at a time to decrypt my cypher.','After 10 wrong inputs, I will defeat you.',],
