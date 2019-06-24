@@ -6,6 +6,11 @@ var Hangman = function (word , guesses) {
   this.guesses = guesses;
   this.answer = this.word.getAnswer();
   this.guessedLetters = [];
+
+  // returns puzzle word as a string
+  this.toString = function() {
+    return word.toString();
+  }
   
   // returns true when the Word is solved
   this.isSolved = function() {

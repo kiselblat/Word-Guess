@@ -17,7 +17,7 @@ A hangman style game library and implementation in javascript for both Web and c
 
 The Web version does not need to be installed anywhere. It can be run in your preferred browser by loading `index.html`.
 
-The CLI version of Compu-Guess requires node.js to run. Find and install it from their [website](https://nodejs.org/en/). The `index.js` file itself depends on the `inquirer` `npm` package, install it with the included `package.json` file by running `npm i` from the command line.
+The CLI version of Compu-Guess requires node.js to run. Find and install it from their [website](https://nodejs.org/en/). The `index.js` file itself depends on the `inquirer`, `bootstrap`, and `jquery` `npm` packages. They can be installed with the included `package.json` file, along with all their own requirements, by running `npm i` from the command line.
 
 The rest of the library: `Letter.js`, `Word.js`, and `Hangman.js` do not depend on any external packages.
 
@@ -45,9 +45,9 @@ Both versions of Compu-Guess give the player 10 wrong guesses, and will prompt t
 
 ## Overview
 
-Word-Guess is a web app and a small library of files that implements a game. The web version, contained in `assets/javascript/game.js` represents one of the author's earliest coding assignments.
+Word-Guess is a web app and a small library of files that implements a word guessing game, commonly called Hangman here in the United States. The web version, contained in `assets/javascript/gamelogic.js` and `assets/javascript/word-guess.js`. The former reflects the code in `index.js` which takes in an object and uses a `Hangman` to run a game. The latter is a 
 
-The remaining files in `assets/javascript/` each define objects that share their filenames: `Letter.j`, `Word.js`, and `Hangman.js`. Each file depends the the preceeding one.
+The remaining files in `assets/javascript/` each define objects that share their filenames: `Letter.js`, `Word.js`, and `Hangman.js`. Each file depends the the preceeding one.
 
 ### `Letter.js`
 
@@ -134,11 +134,12 @@ Returns `true` or `false` if the **currently revealed** letters in a word includ
 2. [`this.guesses`](#hangmanguesses)
 3. [`this.answer`](#hangmananswer)
 4. [`this.guessedLetters`](#hangmanguessedletters)
-5. [`this.isSolved()`](#hangmanissolved)
-6. [`this.noGuesses()`](#hangmannoguesses)
-7. [`this.isGuessed()`](#hangmanisguessed)
-8. [`this.guess(`*`char`*`)`](#hangmanguesschar)
-9. [`this.revealAnswer()`](#hangmanrevealanswer)
+5. [`this.toString()`](#hangmantostring)
+6. [`this.isSolved()`](#hangmanissolved)
+7. [`this.noGuesses()`](#hangmannoguesses)
+8. [`this.isGuessed()`](#hangmanisguessed)
+9. [`this.guess(`*`char`*`)`](#hangmanguesschar)
+10. [`this.revealAnswer()`](#hangmanrevealanswer)
 
 A `Hangman` object takes in a `Word` and then provides a framework for accessing and guessing. A `Hangman` not only handles guessing through the `.guess` method which will report back `true`/`false`/`guessed` whether the guess was successful or not, but also stores guessed letters, and has a way of accessing the answer.
 
@@ -157,6 +158,10 @@ A convenient parameter initialized with the `Word.getAnswer()` method. Provides 
 #### `Hangman.guessedLetters`
 
 The array in which all wrong guesses go. Currently this parameter is the only way to access the guessed letters.
+
+#### 'Hangman.toString()'
+
+Does exactly what the `.toString()` function does for the `Word` object because it works by calling it, and returning the resulting string.
 
 #### `Hangman.isSolved()`
 
