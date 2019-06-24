@@ -6,8 +6,9 @@
     1. [`Letter.js`](#letterjs)
     2. [`Word.js`](#wordjs)
     3. [`Hangman.js`](#hangmanjs)
-    4. [`compuguess.js`](#compuguessjs)
+    4. [`Compuguess.js`](#compuguessjs)
     5. [`index.js`](`indexjs`)
+    6. [`gamelogic.js` and `word-guess.js`](#gamelogicjs-and-word-guessjs)
 4. [About](#about)
 
 A hangman style game library and implementation in javascript for both Web and command line for those who want that sort thing. The actual game takes the form of Compu-Guess, a battle of the minds between you, the user, and the machine, a super-intelligence that has emerged from cyberspace to make you guess words.
@@ -177,58 +178,58 @@ Returns `'guessed'`, `true`, or `false` depending on the character passed to the
 
 Pretty much just calls `Word.revealAnswer()` so there's a convenient way to do that through the `Hangman`.
 
-### `compuguess.js`
+### `Compuguess.js`
 
-1. [`compuguess.title`](#compuguesstitle)
-2. [`compuguess.tagline`](#compuguesstagline)
-3. [`compuguess.instructions`](#compuguessinstructions)
-4. [`compuguess.guesses`](#compuguessguesses)
-5. [`compuguess.winnerMessage`](#compuguesswinnermessage)
-6. [`compuguess.losersMessage`](#compuguesslosersmessage)
-7. [`compuguess.pickWord`](#compuguesspickword)
-8. [`compuguess.goodGuess`](#compuguessgoodguess)
-9. [`compuguess.badGuess`](#compuguessbadguess)
-10. [`compuguess.tryAgain`](#compuguesstryagain)
+1. [`Compuguess.title`](#compuguesstitle)
+2. [`Compuguess.tagline`](#compuguesstagline)
+3. [`Compuguess.instructions`](#compuguessinstructions)
+4. [`Compuguess.guesses`](#compuguessguesses)
+5. [`Compuguess.winnerMessage`](#compuguesswinnermessage)
+6. [`Compuguess.losersMessage`](#compuguesslosersmessage)
+7. [`Compuguess.pickWord`](#compuguesspickword)
+8. [`Compuguess.goodGuess`](#compuguessgoodguess)
+9. [`Compuguess.badGuess`](#compuguessbadguess)
+10. [`Compuguess.tryAgain`](#compuguesstryagain)
 
-Defines a `gameObject` that provides necessary game rules, choices, and output. Most of the data in the `compuguess` object are user outputs to add flavor and a list of possible words to guess. All the following entries are called by code in `index.js` and are therefore required.
+Defines a `gameObject` that provides necessary game rules, choices, and output. Most of the data in the `Compuguess` object are user outputs to add flavor and a list of possible words to guess. All the following entries are called by code in `index.js` and are therefore required.
 
-#### `compuguess.title`
+#### `Compuguess.title`
 
 A string that contains the title of the `gameObject`.
 
-#### `compuguess.tagline`
+#### `Compuguess.tagline`
 
 A string that contains a fun tagline to add atmosphere.
 
-#### `compuguess.instructions`
+#### `Compuguess.instructions`
 
 A string that contains instructions. Incase the user has never heard of this game before.
 
-#### `compuguess.guesses`
+#### `Compuguess.guesses`
 
 Set to an integer number of wrong guesses before the user loses. Gets passed into `Hangman` as the second parameter.
 
-#### `compuguess.winnerMessage`
+#### `Compuguess.winnerMessage`
 
 A required method that serves up a sweet congrats on being a winner.
 
-#### `compuguess.losersMessage`
+#### `Compuguess.losersMessage`
 
 A required method that tosses out some attitude if the user's a loser.
 
-#### `compuguess.pickWord`
+#### `Compuguess.pickWord`
 
 A required method that picks a word to instantiate the `Hangman` object with.
 
-#### `compuguess.goodGuess`
+#### `Compuguess.goodGuess`
 
 A required method that gives the user positive reinforcement on good guesses.
 
-#### `compuguess.badGuess`
+#### `Compuguess.badGuess`
 
 A required method that gives out some sly negative feedback on bad guesses.
 
-#### `compuguess.tryAgain`
+#### `Compuguess.tryAgain`
 
 A required method that prompts the user to try again on duplicate or already discovered entries.
 
@@ -245,6 +246,10 @@ Implements code that:
 6. Gives an option to play again
 
 `index.js` is where the `gameObject`, in this case Compu-Guess, combines with the `Hangman.js` object constructor to make a functioning game. `index.js` uses the `inquirer` package to take in user input and pass it into the game.
+
+### `gamelogic.js` and `word-guess.js`
+
+Implements the same as `index.js` but rewritten for the web. The latter file is a slightly condensed version of the library defined here, but without any `node.js` specific functions. I couldn't find a satisfactory solution to this problem. I cannot expose and import each file without `module.export` or `require()`, and I can't load javascript that has those calls without a reference error in the browser! All the solutions I found were some automated variation on what I've done here.
 
 ## About
 
