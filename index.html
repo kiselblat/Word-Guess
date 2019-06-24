@@ -8,22 +8,25 @@
     <meta name="author" content="Tom Christ">
 
     <title>Guess the Word!</title>
-
+    
+    <script src='node_modules/jquery/dist/jquery.js'></script>
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link href="https://fonts.googleapis.com/css?family=Oxygen+Mono|Press+Start+2P|VT323" rel="stylesheet"> 
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="assets/javascript/word-guess.js"></script>
+    <script src="assets/javascript/gamelogic.js"></script>
   </head>
-
-<body class="d-flex flex-column h-100">   
-
+  
+  <body class="d-flex flex-column h-100">   
+    
   <header>
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md">
-        <h1 class="text-center" id="headline">Compu-guess!</h1>
-        <p class="lead text-center" id="tagline">Match wits with the Machine!</p>
-        <p class="lead text-center" id="instructions">Press any letter to guess, but don't run out of chances!</p>
+        <h1 id="headline" class="text-center"></h1>
+        <p id="tagline" class="lead text-center"></p>
+        <p id="instructions" class="lead text-center"></p>
       </div>
       <div class="col-md-2"></div>
     </div>
@@ -33,7 +36,7 @@
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md">
-       <img id="falling-code" class="mx-auto d-block" src="assets/images/Digital_rain_animation_small_letters_shine.gif" alt="Matrix falling code">
+        <img id="falling-code" class="mx-auto d-block" src="assets/images/Digital_rain_animation_small_letters_shine.gif" alt="Matrix falling code">
       </div>
       <div class="col-md-2"></div>
     </div> 
@@ -69,7 +72,7 @@
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md">
-       <p class="text-center"><span id="results-banner"></span></p>
+        <p class="text-center"><span id="results-banner"></span></p>
       </div>
       <div class="col-md-2"></div>
     </div>
@@ -80,7 +83,6 @@
     <a href="https://kiselblat.github.io/">Back to Profile</a>
   </footer>
   
-  <script src="assets/javascript/game.js"></script>
 </body>
 
 </html>
