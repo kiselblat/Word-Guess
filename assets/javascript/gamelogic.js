@@ -16,7 +16,7 @@ var gameObject = compuguess;
 var firstRun = function() {
   $('#headline').text(gameObject.title);
   $('#tagline').text(gameObject.tagline);
-  $('#instructions').text(gameObject.instructions.join($('br')));
+  $('#instructions').text(gameObject.instructions.join(' '));
   console.log(gameObject.title);
   console.log("Page loaded");
   newGame();
@@ -47,11 +47,11 @@ var endGame = function(result) {
   $('#guess-word').text(game.revealAnswer());
   console.log(game.revealAnswer());
   if (result === 'win') {
-    $('#results-banner').text(gameObject.winnerMessage());
+    $('#results-banner').text(`${gameObject.winnerMessage()} Press space for another word.`);
     $('#wins').text(wins);
     console.log("Player wins");
   } else if (result === 'loss') {
-    $('#results-banner').text(gameObject.losersMessage());
+    $('#results-banner').text(`${gameObject.losersMessage()} Press space for another word.`);
     $('#losses').text(losses);
     console.log("Player loses");
   }
