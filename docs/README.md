@@ -25,6 +25,8 @@ The rest of the library: `Letter.js`, `Word.js`, and `Hangman.js` do not depend 
 
 The Web version of Compu-Guess can be played [here](https://kiselblat.github.io/Word-Guess) on almost any browser, or by loading `index.html` from the repository directly.
 
+![See the Demo](./gifs/compu-guess-web-demo.gif)
+
 The web game takes input directly from the keyboard. The game will display a series of underscores prominantly, representing the unguessed word.
 
 Type letters on the keyboard to guess, the game will ignore non-letter keys, letters that have already been revealed, and letters that have already been guessed.
@@ -39,6 +41,7 @@ This will display the title, COMPU-GUESS and then a number of dashes representin
 
 Enter one letter at a time. Non-letters and already guessed letters will cause the game to re-prompt the user.
 
+![See the Demo](./gifs/compu-guess-cli-demo.gif)
 ---
 
 Both versions of Compu-Guess give the player 10 wrong guesses, and will prompt the user to play a new game when the current one is concluded.
